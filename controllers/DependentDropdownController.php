@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Trucks;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -42,5 +43,15 @@ class DependentDropdownController extends Controller
         }
 
         return [];
+    }
+
+    public function actionTruckDropdown($truckLabel)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return Trucks::find()
+            ->where(['id' => $truckLabel])
+            ->one();
+
     }
 }

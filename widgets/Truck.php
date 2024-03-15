@@ -14,7 +14,9 @@ class Truck extends Widget
 
     public function init()
     {
-        $this->model = $this->findModel($this->ticket_id);
+        $truck = $this->findModel($this->ticket_id);
+        $this->model = $truck->truck;
+
     }
 
     public function run()
@@ -28,12 +30,12 @@ class Truck extends Widget
 
     /**
      * @param int $id ID
-     * @return \app\models\Trucks the loaded model
+     * @return \app\models\TicketTrucks the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = \app\models\Trucks::findOne(['ticket_id' => $id])) !== null) {
+        if (($model = \app\models\TicketTrucks::findOne(['ticket_id' => $id])) !== null) {
             return $model;
         }
 

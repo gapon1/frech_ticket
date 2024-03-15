@@ -17,18 +17,21 @@
         <?= $form->field($model, 'uom')->dropDownList(\app\models\Tickets::getUomOptions()); ?>
     </div>
     <div class="form-group col-md-2">
-        <?= $form->field($model, 'rate')->textInput(['disabled' => true])->label('Reg rate'); ?>
+        <?= $form->field($model, 'rate')->textInput(['readonly' => true])->label('Reg rate'); ?>
     </div>
     <div class="form-group col-md-2">
-        <?= $form->field($model, 'total'); ?>
+        <?= $form->field($model, 'total')->textInput(['readonly' => true]); ?>
     </div>
     <div class="container" style="margin-top: -30px">
         <div class="form-group row">
             <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" disabled id="inputExample" value="360">
+                <input type="text" class="form-control" disabled id="trucks-sub_total" value="0">
             </div>
         </div>
         <!-- Add additional form groups as needed -->
     </div>
+</div>
+<div id="rows-container">
+
 </div>

@@ -85,14 +85,14 @@ class TicketsController extends Controller
         $ticket = $this->findModel($id);
         $labour = $this->findModelLabour($id);
         $miscellaneous = $this->findModelMiscellaneous($id);
-        $trucksModel = $this->findModelTrucks($id);
+        $truck = $this->findModelTrucks($id);
+        $trucksModel = $truck->truck;
         $customers = Customers::find()->all();
         $jobs = Jobs::find()->all();
         $locations = Locations::find()->all();
         $staff = Staff::find()->all();
         $positions = Positions::find()->all();
         $trucks = Trucks::find()->all();
-        $script = $this->JsScript();
 
         if ($ticket->load(\Yii::$app->request->post())
             && $labour->load(\Yii::$app->request->post())
@@ -121,49 +121,7 @@ class TicketsController extends Controller
             'customers' => $customers,
             'staff' => $staff,
             'positions' => $positions,
-            'script' => $script,
         ]);
-    }
-
-    public function JsScript()
-    {
-        $script = <<< JS
-            $('#customer-dropdown').change(function () {
-            var customerId = $(this).val();
-            $.ajax({
-                url: "/dependent-dropdown/job-dropdown?customer_id="+customerId,
-                type: 'post',
-                dataType: 'html',
-                data: {customer_id: customerId},
-                success: function (data) {
-                    console.log(data);
-                     $('#job-dropdown').empty().append($('<option>').text('Select Job'));
-                    var parsedData = typeof data === 'object' ? data : JSON.parse(data); // Safety check
-                    $.each(parsedData, function (index, value) {
-                        $('#job-dropdown').append($('<option>').attr('value', index).text(value));
-                    });
-                }
-            });
-        });
-
-        $('#job-dropdown').change(function () {
-            var jobId = $(this).val();
-            $.ajax({
-                url: '/dependent-dropdown/location-dropdown?job_id='+jobId,
-                data: {job_id: jobId},
-                success: function (data) {
-                    $('#location-dropdown').empty().append($('<option>').text('Select Location/LSD'));
-                    var parsedData = typeof data === 'object' ? data : JSON.parse(data); // Safety check
-                    $.each(data, function (index, value) {
-                        $('#location-dropdown').append($('<option>').attr('value', index).text(value));
-                    });
-                }
-            });
-            }); 
-JS;
-
-        return $script;
-
     }
 
     /**
@@ -224,12 +182,12 @@ JS;
 
     /**
      * @param int $id ID
-     * @return Trucks the loaded model
+     * @return TicketTrucks the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModelTrucks($id)
     {
-        if (($model = Trucks::findOne(['ticket_id' => $id])) !== null) {
+        if (($model = TicketTrucks::findOne(['ticket_id' => $id])) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

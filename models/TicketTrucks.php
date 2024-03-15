@@ -5,26 +5,25 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%miscellaneous}}".
+ * This is the model class for table "{{%ticket_trucks}}".
  *
  * @property int $id
  * @property int $ticket_id
- * @property string|null $description
- * @property float|null $cost
- * @property float|null $price
+ * @property int $truck_id
  * @property float|null $quantity
  * @property float|null $total
  *
  * @property Tickets $ticket
+ * @property Trucks $truck
  */
-class Miscellaneous extends \yii\db\ActiveRecord
+class TicketTrucks extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%miscellaneous}}';
+        return '{{%ticket_trucks}}';
     }
 
     /**
@@ -33,11 +32,11 @@ class Miscellaneous extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ticket_id', 'total'], 'required'],
-            [['ticket_id'], 'integer'],
-            [['description'], 'string'],
-            [['cost', 'price', 'quantity', 'total'], 'number'],
+            [['ticket_id', 'truck_id'], 'required'],
+            [['ticket_id', 'truck_id'], 'integer'],
+            [['quantity', 'total'], 'number'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tickets::class, 'targetAttribute' => ['ticket_id' => 'id']],
+            [['truck_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trucks::class, 'targetAttribute' => ['truck_id' => 'id']],
         ];
     }
 
@@ -49,9 +48,7 @@ class Miscellaneous extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'ticket_id' => 'Ticket ID',
-            'description' => 'Description',
-            'cost' => 'Cost',
-            'price' => 'Price',
+            'truck_id' => 'Truck ID',
             'quantity' => 'Quantity',
             'total' => 'Total',
         ];
@@ -68,11 +65,21 @@ class Miscellaneous extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Truck]].
+     *
+     * @return \yii\db\ActiveQuery|TrucksQuery
+     */
+    public function getTruck()
+    {
+        return $this->hasOne(Trucks::class, ['id' => 'truck_id']);
+    }
+
+    /**
      * {@inheritdoc}
-     * @return MiscellaneousQuery the active query used by this AR class.
+     * @return TicketTrucksQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new MiscellaneousQuery(get_called_class());
+        return new TicketTrucksQuery(get_called_class());
     }
 }

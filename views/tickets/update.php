@@ -33,14 +33,23 @@ $form = ActiveForm::begin(); ?>
                     'id' => 'customer-dropdown',
                 ]);
 
-                // Job Dropdown (initially empty)
-                echo $form->field($ticket, 'job_id')->dropDownList([], [
-                    'prompt' => 'Select Job',
-                    'id' => 'job-dropdown'
-                ]);
+                // Job Dropdown
+                echo $form->field($ticket, 'job_id')->dropDownList(
+                    [$ticket->location_id => ArrayHelper::map($jobs, 'id', 'name')],
+                    [
+                        'disabled' => 'disabled',
+                        'prompt' => 'Select Job',
+                        'id' => 'job-dropdown'
+                    ]);
 
-                // Location/LSD Dropdown (initially empty)
-                echo $form->field($ticket, 'location_id')->dropDownList([], ['prompt' => 'Select Location/LSD', 'id' => 'location-dropdown']);
+                // Location/LSD Dropdown
+                echo $form->field($ticket, 'location_id')->dropDownList(
+                    [$ticket->location_id => ArrayHelper::map($locations, 'id', 'location_lsd')],
+                    [
+                        'prompt' => 'Select Job',
+                        'disabled' => 'disabled',
+                        'id' => 'location-dropdown'
+                    ]);
                 ?>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -51,6 +60,9 @@ $form = ActiveForm::begin(); ?>
                     'attribute' => 'date',
                     'language' => 'en',
                     'dateFormat' => 'yyyy-MM-dd',
+                    'clientOptions' => [
+                        'defaultDate' => date('Y-m-d'), // Set the default date to today
+                    ],
                     'options' => ['class' => 'form-control date_picker', 'style' => 'margin-bottom: 15px'], // Adding custom class
                 ]); ?>
                 <?= $form->field($ticket, 'area_field'); ?>
@@ -97,7 +109,4 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
 
 <?php
 ActiveForm::end();
-$this->registerJs($script, \yii\web\View::POS_END);
-
-
 ?>

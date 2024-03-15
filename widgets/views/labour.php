@@ -24,7 +24,7 @@
         <?= $form->field($model, 'reg_hours'); ?>
     </div>
     <div class="form-group col-md-2">
-        <?= $form->field($model, 'overtime_rate')->textInput(['disabled' => true]); ?>
+        <?= $form->field($model, 'overtime_rate')->textInput(['readonly' => true]); ?>
     </div>
     <div class="form-group col-md-1">
         <?= $form->field($model, 'overtime'); ?>
@@ -34,7 +34,7 @@
         <div class="form-group row">
             <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" disabled id="inputExample" value="360">
+                <input type="text" class="form-control" disabled id="inputExample" value="0">
             </div>
         </div>
         <!-- Add additional form groups as needed -->

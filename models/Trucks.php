@@ -8,12 +8,13 @@ use Yii;
  * This is the model class for table "{{%trucks}}".
  *
  * @property int $id
- * @property int $ticket_id
  * @property string $label
  * @property string $uom
  * @property float $rate
+ * @property int $quantity
+ * @property int $total
  *
- * @property Tickets $ticket
+ * @property TicketTrucks[] $ticketTrucks
  */
 class Trucks extends \yii\db\ActiveRecord
 {
@@ -31,12 +32,11 @@ class Trucks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ticket_id', 'label', 'uom', 'rate'], 'required'],
-            [['ticket_id'], 'integer'],
+            [['label', 'uom', 'rate', 'quantity', 'total'], 'required'],
             [['uom'], 'string'],
-            [['rate','quantity', 'total'], 'number'],
+            [['rate','total'], 'number'],
+            [['quantity'], 'integer'],
             [['label'], 'string', 'max' => 255],
-            [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tickets::class, 'targetAttribute' => ['ticket_id' => 'id']],
         ];
     }
 
@@ -47,23 +47,22 @@ class Trucks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ticket_id' => 'Ticket ID',
             'label' => 'Label',
             'uom' => 'Uom',
             'rate' => 'Rate',
-            'quantity' => 'Qty',
+            'quantity' => 'Quantity',
             'total' => 'Total',
         ];
     }
 
     /**
-     * Gets query for [[Ticket]].
+     * Gets query for [[TicketTrucks]].
      *
-     * @return \yii\db\ActiveQuery|TicketsQuery
+     * @return \yii\db\ActiveQuery|TicketTrucksQuery
      */
-    public function getTicket()
+    public function getTicketTrucks()
     {
-        return $this->hasOne(Tickets::class, ['id' => 'ticket_id']);
+        return $this->hasMany(TicketTrucks::class, ['truck_id' => 'id']);
     }
 
     /**
