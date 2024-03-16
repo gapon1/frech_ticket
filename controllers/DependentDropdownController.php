@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Miscellaneous;
 use app\models\Positions;
 use app\models\Trucks;
 use Yii;
@@ -64,5 +65,15 @@ class DependentDropdownController extends Controller
             ->where(['id' => $positionId])
             ->one();
 
+    }
+
+    public function actionMiscellaneousAddBlock($index)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return $this->renderAjax('_subFormMiscellaneous', [
+            'model' => new Miscellaneous(),
+            'index' => $index,
+        ]);
     }
 }

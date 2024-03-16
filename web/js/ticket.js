@@ -33,4 +33,27 @@ $(document).ready(function () {
         });
     });
 //==========END:: Ajax script for Ticket Form  ===========
+    var counter = 0;
+
+    $('#add-sub-form').on('click', function () {
+        counter++;
+        $.ajax({
+            url: '/dependent-dropdown/miscellaneous-add-block?index', // Adjust URL as needed
+            type: 'post',
+            data: {index: counter},
+            success: function (data) {
+                var $data = $(data).hide();
+                $('#sub-forms-container').append($data);
+                $data.fadeIn(1000);
+            }
+        });
+    });
+
+    // Dynamic binding for removing a sub-form
+    $(document).on('click', '.remove-sub-form', function() {
+        $(this).closest('.sub-form').fadeOut('slow', function() {
+            $(this).remove();
+        });
+    });
+
 });
