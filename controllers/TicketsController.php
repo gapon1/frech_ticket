@@ -109,6 +109,8 @@ class TicketsController extends Controller
                 $miscellaneous->save(false);
                 $trucksModel->save(false);
 
+                \Yii::$app->session->setFlash('success', 'Ticket created.');
+
                 return $this->redirect(['view', 'id' => $ticket->id]);
             }
         }

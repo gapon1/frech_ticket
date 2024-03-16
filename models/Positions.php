@@ -15,7 +15,6 @@ use Yii;
  *
  * @property Labour[] $labours
  * @property Staff[] $staff
- * @property StaffPositions[] $staffPositions
  */
 class Positions extends \yii\db\ActiveRecord
 {
@@ -72,16 +71,6 @@ class Positions extends \yii\db\ActiveRecord
     public function getStaff()
     {
         return $this->hasMany(Staff::class, ['id' => 'staff_id'])->viaTable('{{%staff_positions}}', ['position_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[StaffPositions]].
-     *
-     * @return \yii\db\ActiveQuery|StaffPositionsQuery
-     */
-    public function getStaffPositions()
-    {
-        return $this->hasMany(StaffPositions::class, ['position_id' => 'id']);
     }
 
     /**

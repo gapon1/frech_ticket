@@ -11,8 +11,7 @@ use Yii;
  * @property int $ticket_id
  * @property int $staff_id
  * @property int $position_id
- * @property float|null $reg_hours
- * @property float|null $overtime
+ * @property float|null $total
  *
  * @property Positions $position
  * @property Staff $staff
@@ -36,8 +35,7 @@ class Labour extends \yii\db\ActiveRecord
         return [
             [['ticket_id', 'staff_id', 'position_id'], 'required'],
             [['ticket_id', 'staff_id', 'position_id'], 'integer'],
-            [['uom'], 'string'],
-            [['reg_hours', 'overtime', 'overtime_rate', 'regular_rate'], 'number'],
+            [['reg_hours', 'overtime', 'total'], 'number'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tickets::class, 'targetAttribute' => ['ticket_id' => 'id']],
             [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => Staff::class, 'targetAttribute' => ['staff_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Positions::class, 'targetAttribute' => ['position_id' => 'id']],
@@ -56,9 +54,7 @@ class Labour extends \yii\db\ActiveRecord
             'position_id' => 'Position',
             'reg_hours' => 'Reg Hours',
             'overtime' => 'Overtime',
-            'overtime_rate' => 'Overtime Rate',
-            'regular_rate' => 'Regular Rate',
-            'uom' => 'UOM',
+            'total' => 'Total',
         ];
     }
 

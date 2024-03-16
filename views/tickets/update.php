@@ -20,7 +20,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Tickets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $ticket->id, 'url' => ['view', 'id' => $ticket->id]];
 $this->params['breadcrumbs'][] = 'Edit';
 
-$form = ActiveForm::begin(); ?>
+$form = ActiveForm::begin([
+        'id' => 'ticket-form'
+]); ?>
     <h6>Project</h6>
 
     <div class="container">
@@ -42,6 +44,9 @@ $form = ActiveForm::begin(); ?>
                         'id' => 'job-dropdown'
                     ]);
 
+                //Status
+                echo $form->field($ticket, 'status')->dropDownList(\app\models\Tickets::getStatusOptions());
+
                 // Location/LSD Dropdown
                 echo $form->field($ticket, 'location_id')->dropDownList(
                     [$ticket->location_id => ArrayHelper::map($locations, 'id', 'location_lsd')],
@@ -56,7 +61,7 @@ $form = ActiveForm::begin(); ?>
                 <?= $form->field($ticket, 'ordered_by'); ?>
                 <label>Date</label>
                 <?= \yii\jui\DatePicker::widget([
-                    'model' => $ticket,
+                    'value' => date('Y-m-d'), // Set the default date to today
                     'attribute' => 'date',
                     'language' => 'en',
                     'dateFormat' => 'yyyy-MM-dd',

@@ -56,11 +56,6 @@ $(document).ready(function () {
     });
 
 //==========END:: Script for Miscellaneous Widget  ===========
-//==========  Script for Labour Widget  ===========
-
-
-//==========END:: Script for Labour Widget  ===========
-
 //==========  Script for Truck Widget  ===========
     $('#trucks-label').change(function () {
         let truckLabel = $(this).val();
@@ -80,26 +75,87 @@ $(document).ready(function () {
         });
     });
 
-    // Add total value for row Sub-Total
-    let trucksTotal = $('#trucks-total').val();
-    $('#trucks-sub_total').val(trucksTotal);
-
-    // Add event keyup for rows
-    $("#trucks-rate, #trucks-quantity").keyup(function () {
-        // Retrieve values from inputs and ensure they're floats
-        let truckPrice = parseFloat($('#trucks-rate').val());
-        let truckQuantity = parseFloat($('#trucks-quantity').val());
-
-        // Check if the inputs are numbers
-        if (!isNaN(truckPrice) && !isNaN(truckQuantity)) {
-            let truckTotal_sum = truckPrice * truckQuantity;
-            $('#trucks-total').val(truckTotal_sum.toFixed(2));
-            $('#trucks-sub_total').val(truckTotal_sum.toFixed(2));
+    $("#ticket-form").on('keyup mousedown mouseup click change', function (e) {
+        let selectedTruck = $('#trucks-uom').find(":selected").val();
+        if (selectedTruck === 'Fixed') {
+            let truckRateVal = parseFloat($('#trucks-rate').val());
+            $('#trucks-sub_total').val(truckRateVal.toFixed(2));
+            $('#trucks-total').val(truckRateVal.toFixed(2));
         } else {
-            $("#trucks-sub_total").val("Please enter valid numbers.");
+            // Add total value for row Sub-Total
+            let trucksTotal = $('#trucks-total').val();
+            $('#trucks-sub_total').val(trucksTotal);
+            // Add event keyup for rows
+            $("#trucks-rate, #trucks-quantity, #trucks-uom").on('keyup click change', function () {
+                // Retrieve values from inputs and ensure they're floats
+                let truckPrice = parseFloat($('#trucks-rate').val());
+                let truckQuantity = parseFloat($('#trucks-quantity').val());
+                // Check if the inputs are numbers
+                if (!isNaN(truckPrice) && !isNaN(truckQuantity)) {
+                    let truckTotal_sum = truckPrice * truckQuantity;
+                    $('#trucks-total').val(truckTotal_sum.toFixed(2));
+                    $('#trucks-sub_total').val(truckTotal_sum.toFixed(2));
+                } else {
+                    $("#trucks-sub_total").val("Please enter valid numbers.");
+                }
+            });
+        }
+//==========END:: Script for Truck Widget  ===========
+//==========  Calculate Labour Widget  ===========
+        // Check UOM value
+        let selectedUom = $('#positions-uom').find(":selected").val();
+        if (selectedUom === 'Fixed') {
+            $('#labour-reg_hours').prop('disabled', true);
+            $('#labour-overtime').prop('disabled', true);
+            let labourPrice = parseFloat($('#positions-regular_rate').val());
+            $('#labour_sub-total').val(labourPrice.toFixed(2));
+
+        } else {
+            $('#labour-reg_hours').prop('disabled', false);
+            $('#labour-overtime').prop('disabled', false);
+            // Add total value for row Sub-Total
+            let labourTotal = $('#labour-total').val();
+            $('#labour_sub-total').val(labourTotal);
+            // Add event keyup for rows
+            $("#labour-reg_hours, #labour-overtime").keyup(function () {
+                // Retrieve values from inputs and ensure they're floats
+                let labourPrice = parseFloat($('#positions-regular_rate').val());
+                let labourQuantity = parseFloat($('#labour-reg_hours').val());
+                let labourOvertime = parseFloat($('#labour-overtime').val());
+                let labourOvertimeRate = parseFloat($('#positions-overtime_rate').val());
+
+                // Check if the inputs are numbers
+                if (!isNaN(labourPrice) && !isNaN(labourQuantity)) {
+                    let overtimeTotal = labourOvertime * labourOvertimeRate
+                    let labourTotal_sum = labourPrice * labourQuantity;
+                    let labourTotalSum = overtimeTotal + labourTotal_sum;
+                    $('#labour-total').val(labourTotalSum.toFixed(2));
+                    $('#labour_sub-total').val(labourTotalSum.toFixed(2));
+                } else {
+                    $("#labour_sub-total").val("Please enter valid numbers.");
+                }
+            });
         }
     });
-//==========END:: Script for Truck Widget  ===========
 
+
+//  IF Change Position value
+    $('#labour-position_id').change(function () {
+        let positionId = $(this).val();
+        $.ajax({
+            url: "/dependent-dropdown/position-dropdown?positionId=" + positionId,
+            type: 'post',
+            dataType: 'html',
+            data: {positionId: positionId},
+            success: function (data) {
+                var positionsData = JSON.parse(data);
+                // Use the code from above to update the HTML elements
+                $('#positions-uom').val(positionsData.uom);
+                $('#positions-regular_rate').attr('value', positionsData.regular_rate);
+                $('#positions-overtime_rate').attr('value', positionsData.overtime_rate);
+            }
+        });
+    });
+//==========END:: Script for Miscellaneous Widget  ===========
 
 });

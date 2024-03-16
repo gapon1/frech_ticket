@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Positions;
 use app\models\Trucks;
 use Yii;
 use yii\web\Controller;
@@ -51,6 +52,16 @@ class DependentDropdownController extends Controller
 
         return Trucks::find()
             ->where(['id' => $truckLabel])
+            ->one();
+
+    }
+
+    public function actionPositionDropdown($positionId)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return Positions::find()
+            ->where(['id' => $positionId])
             ->one();
 
     }
