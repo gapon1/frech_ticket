@@ -9,9 +9,7 @@ use yii\helpers\ArrayHelper;
 /* @var $jobs app\models\Jobs[] */
 /* @var $locations app\models\Locations[] */
 /* @var $trucks app\models\Trucks[] */
-/* @var $positions app\models\Positions[] */
 /* @var $customers app\models\Customers[] */
-/* @var $staff app\models\Staff[] */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $script */
 
@@ -20,9 +18,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Tickets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $ticket->id, 'url' => ['view', 'id' => $ticket->id]];
 $this->params['breadcrumbs'][] = 'Edit';
 
-$form = ActiveForm::begin([
-        'id' => 'ticket-form'
-]); ?>
+$form = ActiveForm::begin(['id' => 'ticket-form']); ?>
+
     <h6>Project</h6>
 
     <div class="container">
@@ -80,27 +77,20 @@ $form = ActiveForm::begin([
 // Description of work
 echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::className())
 ?>
-    <hr class="hr"/>
 
     <!-- LabourWidget section -->
-    <h6>Labour</h6>
 <?= \app\widgets\Labour::widget([
     'ticket_id' => $ticket->id,
     'form' => $form,
-    'staff' => $staff,
-    'positions' => $positions
 ]) ?>
-    <hr class="hr"/>
+
     <!-- TruckWidget section -->
-    <h6>Truck</h6>
 <?= \app\widgets\Truck::widget([
     'ticket_id' => $ticket->id,
     'form' => $form,
-    'trucks' => $trucks,
 ]) ?>
-    <hr class="hr"/>
+
     <!-- MiscellaneousWidget section -->
-    <h6>Miscellaneous</h6>
 <?= \app\widgets\Miscellaneous::widget([
     'ticket_id' => $ticket->id,
     'form' => $form,
@@ -110,7 +100,6 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
     <div class="col-md-12 text-right">
         <?= Html::submitButton('FINISH', ['class' => 'btn btn-secondary text-right']); ?>
     </div>
-
 
 <?php
 ActiveForm::end();

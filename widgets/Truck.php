@@ -2,6 +2,7 @@
 
 namespace app\widgets;
 
+use app\models\Trucks;
 use yii\base\Widget;
 use yii\web\NotFoundHttpException;
 
@@ -14,6 +15,7 @@ class Truck extends Widget
 
     public function init()
     {
+        $this->trucks = Trucks::find()->all();
         $truck = $this->findModel($this->ticket_id);
         $this->model = $truck->truck;
 

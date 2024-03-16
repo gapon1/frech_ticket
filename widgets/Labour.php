@@ -2,6 +2,8 @@
 
 namespace app\widgets;
 
+use app\models\Positions;
+use app\models\Staff;
 use yii\base\Widget;
 use yii\web\NotFoundHttpException;
 
@@ -15,6 +17,8 @@ class Labour extends Widget
 
     public function init()
     {
+        $this->staff = Staff::find()->all();
+        $this->positions = Positions::find()->all();
         $this->model = $this->findModel($this->ticket_id);
     }
 

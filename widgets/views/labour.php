@@ -6,7 +6,8 @@
  * @var $model
  */
 ?>
-
+<hr class="hr"/>
+<h6>Labour</h6>
 <div class="form-row">
     <div class="form-group col-md-2">
         <?= $form->field($model, "staff_id")->dropDownList(\yii\helpers\ArrayHelper::map($staff, 'id', 'name')); ?>

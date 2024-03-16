@@ -6,7 +6,8 @@
  * @var $model
  */
 ?>
-
+<hr class="hr"/>
+<h6>Miscellaneous</h6>
 <div class="form-row">
     <div class="form-group col-md-2">
         <?= $form->field($model, 'description'); ?>

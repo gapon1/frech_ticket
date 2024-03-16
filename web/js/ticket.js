@@ -108,6 +108,7 @@ $(document).ready(function () {
             $('#labour-reg_hours').prop('disabled', true);
             $('#labour-overtime').prop('disabled', true);
             let labourPrice = parseFloat($('#positions-regular_rate').val());
+            $('#labour-total').val(labourPrice.toFixed(2));
             $('#labour_sub-total').val(labourPrice.toFixed(2));
 
         } else {
@@ -117,7 +118,7 @@ $(document).ready(function () {
             let labourTotal = $('#labour-total').val();
             $('#labour_sub-total').val(labourTotal);
             // Add event keyup for rows
-            $("#labour-reg_hours, #labour-overtime").keyup(function () {
+            $("#labour-reg_hours, #labour-overtime, #positions-uom").on('keyup click change',function () {
                 // Retrieve values from inputs and ensure they're floats
                 let labourPrice = parseFloat($('#positions-regular_rate').val());
                 let labourQuantity = parseFloat($('#labour-reg_hours').val());

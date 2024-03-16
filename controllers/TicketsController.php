@@ -7,15 +7,11 @@ use app\models\Jobs;
 use app\models\Labour;
 use app\models\Locations;
 use app\models\Miscellaneous;
-use app\models\Positions;
-use app\models\Staff;
 use app\models\Tickets;
 use app\models\TicketsSearch;
 use app\models\TicketTrucks;
-use app\models\Trucks;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * TicketsController implements the CRUD actions for Tickets model.
@@ -87,27 +83,28 @@ class TicketsController extends Controller
         $miscellaneous = $this->findModelMiscellaneous($id);
         $truck = $this->findModelTrucks($id);
         $trucksModel = $truck->truck;
+        $positions = $labour->position;
         $customers = Customers::find()->all();
         $jobs = Jobs::find()->all();
         $locations = Locations::find()->all();
-        $staff = Staff::find()->all();
-        $positions = Positions::find()->all();
-        $trucks = Trucks::find()->all();
 
         if ($ticket->load(\Yii::$app->request->post())
             && $labour->load(\Yii::$app->request->post())
             && $miscellaneous->load(\Yii::$app->request->post())
             && $trucksModel->load(\Yii::$app->request->post())
+            && $positions->load(\Yii::$app->request->post())
         ) {
             $isValid = $ticket->validate();
             $isValid = $labour->validate() && $isValid;
             $isValid = $miscellaneous->validate() && $isValid;
             $isValid = $trucksModel->validate() && $isValid;
+            $isValid = $positions->validate() && $isValid;
             if ($isValid) {
                 $ticket->save(false);
                 $labour->save(false);
-                $miscellaneous->save(false);
+                $positions->save(false);
                 $trucksModel->save(false);
+                $miscellaneous->save(false);
 
                 \Yii::$app->session->setFlash('success', 'Ticket created.');
 
@@ -119,10 +116,7 @@ class TicketsController extends Controller
             'ticket' => $ticket,
             'jobs' => $jobs,
             'locations' => $locations,
-            'trucks' => $trucks,
             'customers' => $customers,
-            'staff' => $staff,
-            'positions' => $positions,
         ]);
     }
 
