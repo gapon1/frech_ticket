@@ -23,11 +23,9 @@ class MiscellaneousController extends Controller
         ]);
     }
 
-    public function actionCreateMiscellaneous()
+    public function actionCreateMiscellaneous($ticketId)
     {
         $model = new Miscellaneous();
-        $ticketId = Yii::$app->request->get('id');
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
 
@@ -68,7 +66,7 @@ class MiscellaneousController extends Controller
                 return $valid;
             }
         }
-        return 'Update Success!';
+        return 'Miscellaneous Updated Success!';
     }
 
     public function actionDeleteMiscellaneous($id)

@@ -43,7 +43,7 @@ $form = \yii\bootstrap4\ActiveForm::begin([
         </div>
     <?php endif; ?>
     <div class="col-md-12 text-right">
-        <?= \yii\bootstrap4\Html::submitButton('FINISH', ['class' => 'btn btn-secondary text-right', 'id' => 'save-dynamic-form-misc']); ?>
+        <?= \yii\bootstrap4\Html::submitButton('Save', ['class' => 'btn btn-info text-right', 'id' => 'save-dynamic-form-misc']); ?>
     </div>
 </div>
 <?php

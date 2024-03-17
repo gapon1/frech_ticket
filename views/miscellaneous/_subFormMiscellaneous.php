@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $ticketId integer */
 
 $form = \yii\bootstrap4\ActiveForm::begin([
-    'id' => 'ticket-form-dynamic',
+    'id' => 'ticket-form-dynamic-sub',
 ]); ?>
 
 <div class="sub-form">
