@@ -7,7 +7,6 @@ $counter = 0;
 $form = \yii\bootstrap4\ActiveForm::begin([
     'id' => 'ticket-form-dynamic',
 ]); ?>
-
 <div id="sub-forms-container"></div>
 <div id="misc_container">
     <?php if (!empty($model)): ?>

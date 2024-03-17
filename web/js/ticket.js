@@ -39,14 +39,15 @@ $(document).ready(function () {
     const searchParams = new URLSearchParams(window.location.search);
     let ticketId = searchParams.getAll('id')
     $(document).on('click', '.add-sub-form', function () {
-        $('.add-sub-form').prop('disabled', true);
+        $('<div>', {id: 'sub-forms-container_main',}).appendTo('#sub-forms-container');
         counter++;
         $.ajax({
             url: '/dependent-dropdown/miscellaneous-add-block?index&counter=' + counter + '&ticketId=' + ticketId, // Adjust URL as needed
             type: 'post',
             data: {index: counter},
             success: function (data) {
-                $('#sub-forms-container').append(data);
+                $('.add-sub-form').prop('disabled', true);
+                $('#sub-forms-container_main').append(data);
             }
         });
     });
@@ -60,7 +61,7 @@ $(document).ready(function () {
             type: 'POST',
             data: $('#ticket-form-dynamic').serialize(),
             success: function (data) {
-                $('#sub-forms-container').remove().fadeIn(1000);
+                $('#sub-forms-container_main').remove();
                 $('#misc_container').replaceWith(data); // Replace the content
                 $('.add-sub-form').prop('disabled', false);
             }
@@ -84,8 +85,8 @@ $(document).ready(function () {
     // Dynamic binding for removing a sub-form
     $(document).on('click', '.remove-sub-form', function () {
         $(this).closest('.sub-form').fadeOut('slow', function () {
-            $('.add-sub-form').prop('disabled', false);
             $(this).remove();
+            $('.add-sub-form').prop('disabled', false);
         });
     });
 //==========END:: Ajax script for Dynamic adding Miscellaneous blocks  ===========
