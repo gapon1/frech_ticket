@@ -7,7 +7,6 @@ use yii\web\NotFoundHttpException;
 
 class Miscellaneous extends Widget
 {
-    public $form;
     public $model;
     public $ticket_id;
 
@@ -19,7 +18,6 @@ class Miscellaneous extends Widget
     public function run()
     {
         return $this->render('miscellaneous', [
-            'form' => $this->form,
             'model' => $this->model,
             'ticketId' => $this->ticket_id,
         ]);
