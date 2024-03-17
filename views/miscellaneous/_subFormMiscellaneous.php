@@ -33,8 +33,6 @@ $form = \yii\bootstrap4\ActiveForm::begin([
             <button class="btn btn-danger remove-sub-form">X</button>
             <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'id' => 'save_dynamic']); ?>
         </div>
-        <div class="form-group col-md-1">
-        </div>
     </div>
 </div>
 <?php

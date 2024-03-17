@@ -2,6 +2,8 @@
 
 namespace app\widgets;
 
+use app\models\Tickets;
+use app\models\TicketTrucks;
 use app\models\Trucks;
 use yii\base\Widget;
 use yii\web\NotFoundHttpException;
@@ -15,9 +17,14 @@ class Truck extends Widget
 
     public function init()
     {
-        $this->trucks = Trucks::find()->all();
-        $truck = $this->findModel($this->ticket_id);
-        $this->model = $truck->truck;
+
+        $ticketTrucks = TicketTrucks::find()->where(['ticket_id' => $this->ticket_id])->all();
+
+        $trucksArray = [];
+        foreach ($ticketTrucks as $ticketTruck) {
+            $trucksArray[] = $ticketTruck->truck;
+        }
+        $this->model = $trucksArray;
 
     }
 
@@ -26,22 +33,8 @@ class Truck extends Widget
         return $this->render('truck', [
             'form' => $this->form,
             'model' => $this->model,
-            'trucks' => $this->trucks,
+            'trucks' => Trucks::find()->all(),
         ]);
-    }
-
-    /**
-     * @param int $id ID
-     * @return \app\models\TicketTrucks the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = \app\models\TicketTrucks::findOne(['ticket_id' => $id])) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
 }

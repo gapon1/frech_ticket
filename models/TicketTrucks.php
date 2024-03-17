@@ -10,8 +10,6 @@ use Yii;
  * @property int $id
  * @property int $ticket_id
  * @property int $truck_id
- * @property float|null $quantity
- * @property float|null $total
  *
  * @property Tickets $ticket
  * @property Trucks $truck
@@ -34,7 +32,6 @@ class TicketTrucks extends \yii\db\ActiveRecord
         return [
             [['ticket_id', 'truck_id'], 'required'],
             [['ticket_id', 'truck_id'], 'integer'],
-            [['quantity', 'total'], 'number'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tickets::class, 'targetAttribute' => ['ticket_id' => 'id']],
             [['truck_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trucks::class, 'targetAttribute' => ['truck_id' => 'id']],
         ];
@@ -49,8 +46,6 @@ class TicketTrucks extends \yii\db\ActiveRecord
             'id' => 'ID',
             'ticket_id' => 'Ticket ID',
             'truck_id' => 'Truck ID',
-            'quantity' => 'Quantity',
-            'total' => 'Total',
         ];
     }
 

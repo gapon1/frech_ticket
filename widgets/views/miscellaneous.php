@@ -6,7 +6,6 @@
 $form = \yii\bootstrap4\ActiveForm::begin([
     'id' => 'ticket-form-dynamic'
 ]); ?>
-<hr class="hr"/>
 <h6 style="text-align: left">Miscellaneous</h6>
 <div id="sub-forms-container"></div>
 <div id="misc_container" style="text-align: left">

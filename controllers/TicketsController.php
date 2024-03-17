@@ -79,8 +79,6 @@ class TicketsController extends Controller
     {
         $ticket = $this->findModel($id);
         $labour = $this->findModelLabour($id);
-        $truck = $this->findModelTrucks($id);
-        $trucksModel = $truck->truck;
         $positions = $labour->position;
         $customers = Customers::find()->all();
         $jobs = Jobs::find()->all();
@@ -88,18 +86,15 @@ class TicketsController extends Controller
 
         if ($ticket->load(\Yii::$app->request->post())
             && $labour->load(\Yii::$app->request->post())
-            && $trucksModel->load(\Yii::$app->request->post())
             && $positions->load(\Yii::$app->request->post())
         ) {
             $isValid = $ticket->validate();
             $isValid = $labour->validate() && $isValid;
-            $isValid = $trucksModel->validate() && $isValid;
             $isValid = $positions->validate() && $isValid;
             if ($isValid) {
                 $ticket->save(false);
                 $labour->save(false);
                 $positions->save(false);
-                $trucksModel->save(false);
 
                 \Yii::$app->session->setFlash('success', 'Ticket created.');
 
@@ -153,19 +148,6 @@ class TicketsController extends Controller
     protected function findModelLabour($id)
     {
         if (($model = Labour::findOne(['ticket_id' => $id])) !== null) {
-            return $model;
-        }
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    /**
-     * @param int $id ID
-     * @return TicketTrucks the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModelTrucks($id)
-    {
-        if (($model = TicketTrucks::findOne(['ticket_id' => $id])) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
