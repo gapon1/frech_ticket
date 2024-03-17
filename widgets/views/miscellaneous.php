@@ -6,8 +6,10 @@
 $form = \yii\bootstrap4\ActiveForm::begin([
     'id' => 'ticket-form-dynamic'
 ]); ?>
+<hr class="hr"/>
+<h6 style="text-align: left">Miscellaneous</h6>
 <div id="sub-forms-container"></div>
-<div id="misc_container">
+<div id="misc_container" style="text-align: left">
     <?php if (!empty($model)): ?>
         <?php foreach ($model as $index => $mod): ?>
             <div class="form-row sub-form">
@@ -27,24 +29,22 @@ $form = \yii\bootstrap4\ActiveForm::begin([
                     <?= $form->field($mod, "[$index]total")->textInput(['readonly' => true, 'class' => 'miscellaneous-total form-control']); ?>
                 </div>
 
-                <div class="form-group col-md-2 text-right" style="margin-top: 30px">
+                <div class="form-group col-md-2 text-center" style="margin-top: 30px">
                     <button type="button" id="<?= $mod->id ?>" class="btn btn-danger remove-sub-form">X</button>
                     <button type="button" class="btn btn-primary add-sub-form">+</button>
                 </div>
             </div>
         <?php endforeach; ?>
-        <div class="container" style="margin-top: -30px">
+        <div class="container" style="margin-top: -20px">
             <div class="form-group row">
-                <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
+                <label for="inputExample" class="col-sm-8 col-form-label"><b>Sub-Total</b></label>
                 <div class="col-sm-4">
                     <input type="text" class="form-control miscellaneous-sub_total" disabled>
                 </div>
             </div>
         </div>
     <?php endif; ?>
-    <div class="col-md-12 text-right">
-        <?= \yii\bootstrap4\Html::submitButton('Save', ['class' => 'btn btn-info text-right', 'id' => 'save-dynamic-form-misc']); ?>
-    </div>
+        <?= \yii\bootstrap4\Html::submitButton('Save', ['id' => 'save-dynamic-form-misc', 'style' => 'display: none']); ?>
 </div>
 <?php
 \yii\bootstrap4\ActiveForm::end();

@@ -66,6 +66,12 @@ $(document).ready(function () {
         });
     });
     //========  Update new entity ======
+
+    // Add trigger click for main EDIT button
+    $(document).on('click', '#save-dynamic-form', function (e) {
+        $('#save-dynamic-form-misc').trigger('click');
+    });
+
     $(document).on('click', '#save-dynamic-form-misc', function (e) {
         e.preventDefault();
         $.ajax({
@@ -73,8 +79,8 @@ $(document).ready(function () {
             type: 'POST',
             data: $('#ticket-form-dynamic').serialize(),
             success: function (data) {
-                $('#exampleModal .modal-body').html(data);
-                $('#exampleModal').modal('show');
+                // $('#exampleModal .modal-body').html(data);
+                // $('#exampleModal').modal('show');
             }
         });
     })

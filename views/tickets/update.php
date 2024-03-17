@@ -99,8 +99,6 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
 ActiveForm::end();
 ?>
 
-<hr class="hr"/>
-<h6>Miscellaneous</h6>
 <!-- MiscellaneousWidget section -->
 <?= \app\widgets\Miscellaneous::widget([
     'ticket_id' => $ticket->id,
