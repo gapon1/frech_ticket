@@ -21,6 +21,7 @@ class Miscellaneous extends Widget
         return $this->render('miscellaneous', [
             'form' => $this->form,
             'model' => $this->model,
+            'ticketId' => $this->ticket_id,
         ]);
     }
 
@@ -31,7 +32,7 @@ class Miscellaneous extends Widget
      */
     protected function findModel($id)
     {
-        if (($model = \app\models\Miscellaneous::findOne(['ticket_id' => $id])) !== null) {
+        if (($model = \app\models\Miscellaneous::findAll(['ticket_id' => $id])) !== null) {
             return $model;
         }
 

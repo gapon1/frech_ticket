@@ -80,7 +80,7 @@ class TicketsController extends Controller
     {
         $ticket = $this->findModel($id);
         $labour = $this->findModelLabour($id);
-        $miscellaneous = $this->findModelMiscellaneous($id);
+        //$miscellaneous = $this->findModelMiscellaneous($id);
         $truck = $this->findModelTrucks($id);
         $trucksModel = $truck->truck;
         $positions = $labour->position;
@@ -90,13 +90,13 @@ class TicketsController extends Controller
 
         if ($ticket->load(\Yii::$app->request->post())
             && $labour->load(\Yii::$app->request->post())
-            && $miscellaneous->load(\Yii::$app->request->post())
+            //&& $miscellaneous->load(\Yii::$app->request->post())
             && $trucksModel->load(\Yii::$app->request->post())
             && $positions->load(\Yii::$app->request->post())
         ) {
             $isValid = $ticket->validate();
             $isValid = $labour->validate() && $isValid;
-            $isValid = $miscellaneous->validate() && $isValid;
+            //$isValid = $miscellaneous->validate() && $isValid;
             $isValid = $trucksModel->validate() && $isValid;
             $isValid = $positions->validate() && $isValid;
             if ($isValid) {
@@ -104,7 +104,7 @@ class TicketsController extends Controller
                 $labour->save(false);
                 $positions->save(false);
                 $trucksModel->save(false);
-                $miscellaneous->save(false);
+                //$miscellaneous->save(false);
 
                 \Yii::$app->session->setFlash('success', 'Ticket created.');
 
@@ -163,18 +163,18 @@ class TicketsController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    /**
-     * @param int $id ID
-     * @return Miscellaneous the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModelMiscellaneous($id)
-    {
-        if (($model = Miscellaneous::findOne(['ticket_id' => $id])) !== null) {
-            return $model;
-        }
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
+//    /**
+//     * @param int $id ID
+//     * @return Miscellaneous the loaded model
+//     * @throws NotFoundHttpException if the model cannot be found
+//     */
+//    protected function findModelMiscellaneous($id)
+//    {
+//        if (($model = Miscellaneous::findAll(['ticket_id' => $id])) !== null) {
+//            return $model;
+//        }
+//        throw new NotFoundHttpException('The requested page does not exist.');
+//    }
 
     /**
      * @param int $id ID

@@ -33,27 +33,61 @@ $(document).ready(function () {
         });
     });
 //==========END:: Ajax script for Ticket Form  ===========
-    var counter = 0;
 
-    $('#add-sub-form').on('click', function () {
+//========== Ajax script for Dynamic adding Miscellaneous blocks  ===========
+    let counter = 0;
+    const searchParams = new URLSearchParams(window.location.search);
+    let ticketId = searchParams.getAll('id')
+    $(document).on('click', '.add-sub-form', function () {
+        $('.add-sub-form').prop('disabled', true);
         counter++;
         $.ajax({
-            url: '/dependent-dropdown/miscellaneous-add-block?index', // Adjust URL as needed
+            url: '/dependent-dropdown/miscellaneous-add-block?index&counter=' + counter + '&ticketId=' + ticketId, // Adjust URL as needed
             type: 'post',
             data: {index: counter},
             success: function (data) {
-                var $data = $(data).hide();
-                $('#sub-forms-container').append($data);
-                $data.fadeIn(1000);
+                $('#sub-forms-container').append(data);
             }
         });
     });
 
+
+    // Create new entity
+    $(document).on('click', '#save_dynamic', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/dependent-dropdown/create-miscellaneous?id=' + ticketId,
+            type: 'POST',
+            data: $('#ticket-form-dynamic').serialize(),
+            success: function (data) {
+                $('#sub-forms-container').remove().fadeIn(1000);
+                $('#misc_container').replaceWith(data); // Replace the content
+                $('.add-sub-form').prop('disabled', false);
+            }
+        });
+    });
+
+    //==========  Delete block
+
+    $(document).on('click change', '.remove-sub-form', function (e) {
+        let blockId = $(this).attr('id')
+        e.preventDefault();
+        $.ajax({
+            url: '/dependent-dropdown/delete-miscellaneous?id=' + blockId,
+            type: 'POST',
+            data: $('#ticket-form').serialize(),
+            success: function (data) {
+                // Some script
+            }
+        });
+    });
     // Dynamic binding for removing a sub-form
-    $(document).on('click', '.remove-sub-form', function() {
-        $(this).closest('.sub-form').fadeOut('slow', function() {
+    $(document).on('click', '.remove-sub-form', function () {
+        $(this).closest('.sub-form').fadeOut('slow', function () {
+            $('.add-sub-form').prop('disabled', false);
             $(this).remove();
         });
     });
+//==========END:: Ajax script for Dynamic adding Miscellaneous blocks  ===========
 
 });

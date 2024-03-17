@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
@@ -89,7 +89,8 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
     'ticket_id' => $ticket->id,
     'form' => $form,
 ]) ?>
-
+    <hr class="hr"/>
+    <h6>Miscellaneous</h6>
     <!-- MiscellaneousWidget section -->
 <?= \app\widgets\Miscellaneous::widget([
     'ticket_id' => $ticket->id,
@@ -98,7 +99,7 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
 
     <hr class="hr"/>
     <div class="col-md-12 text-right">
-        <?= Html::submitButton('FINISH', ['class' => 'btn btn-secondary text-right']); ?>
+        <?= Html::submitButton('FINISH', ['class' => 'btn btn-secondary text-right', 'id'=>'save-dynamic-form']); ?>
     </div>
 
 <?php

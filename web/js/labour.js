@@ -35,8 +35,7 @@ $(document).ready(function () {
             let labourTotal = $('#labour-total').val();
             $('#labour_sub-total').val(labourTotal);
             // Add event keyup for rows
-            $("#labour-reg_hours, #labour-overtime, #positions-uom").on('keyup click change', function () {
-                // Retrieve values from inputs and ensure they're floats
+                $(document).on('input', '#labour-reg_hours, #labour-overtime, #positions-uom', function () {
                 let labourPrice = parseFloat($('#positions-regular_rate').val());
                 let labourQuantity = parseFloat($('#labour-reg_hours').val());
                 let labourOvertime = parseFloat($('#labour-overtime').val());

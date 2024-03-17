@@ -3,38 +3,53 @@
  * @var $form
  * @var $model
  */
-?>
-<hr class="hr"/>
-<h6>Miscellaneous</h6>
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?= $form->field($model, 'description'); ?>
-    </div>
-    <div class="form-group col-md-2">
-        <?= $form->field($model, 'cost')->textInput(['type' => 'number']); ?>
-    </div>
-    <div class="form-group col-md-2">
-        <?= $form->field($model, 'price'); ?>
-    </div>
-    <div class="form-group col-md-2">
-        <?= $form->field($model, 'quantity'); ?>
-    </div>
-    <div class="form-group col-md-2">
-        <?= $form->field($model, 'total')->textInput(['readonly' => true]); ?>
-    </div>
+$counter = 0;
+$form = \yii\bootstrap4\ActiveForm::begin([
+    'id' => 'ticket-form-dynamic',
+]); ?>
 
-    <div class="form-group col-md-2 text-right" style="margin-top: 30px">
-        <span id="add-sub-form" style="cursor: pointer"><img src="/image/blue.svg" alt="add" width="40" height="40"></span>
-    </div>
+<div id="sub-forms-container"></div>
+<div id="misc_container">
+    <?php if (!empty($model)): ?>
+        <?php foreach ($model as $mod): ?>
+            <div class="form-row sub-form">
+                <div class="form-group col-md-2">
+                    <?= $form->field($mod, 'description')->textInput(['id' => 'miscellaneous-description_id_' . $counter,]); ?>
+                </div>
+                <div class="form-group col-md-2">
+                    <?= $form->field($mod, 'cost')->textInput(['type' => 'number', 'id' => 'miscellaneous-cost_' . $counter]); ?>
+                </div>
+                <div class="form-group col-md-2">
+                    <?= $form->field($mod, 'price')->textInput(['class' => 'miscellaneous-price form-control']); ?>
+                </div>
+                <div class="form-group col-md-2">
+                    <?= $form->field($mod, 'quantity')->textInput(['class' => 'miscellaneous-quantity form-control']); ?>
+                </div>
+                <div class="form-group col-md-2">
+                    <?= $form->field($mod, 'total')->textInput(['readonly' => true, 'class' => 'miscellaneous-total form-control', 'value' => $mod->quantity + $mod->price]); ?>
+                </div>
 
-    <div id="sub-forms-container" style="margin-bottom: 20px; margin-top: -20px"></div>
+                <div class="form-group col-md-2 text-right" style="margin-top: 30px">
+                    <button type="button" id="<?= $mod->id ?>" class="btn btn-danger remove-sub-form">X</button>
+                    <button type="button" class="btn btn-primary add-sub-form">+</button>
+                </div>
 
-    <div class="container" style="margin-top: -30px">
-        <div class="form-group row">
-            <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" disabled id="miscellaneous-sub_total" value="0">
+
+                <div class="container" style="margin-top: -30px">
+                    <div class="form-group row">
+                        <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control miscellaneous-sub_total" disabled
+                                   value="<?= $mod->quantity + $mod->price ?>">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+
+            <?php $counter++; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </div>
+<?php
+\yii\bootstrap4\ActiveForm::end();
+?>

@@ -1,23 +1,17 @@
 $(document).ready(function () {
 
 //==========  Script for Miscellaneous Widget  ===========
-// Add total value for row Sub-Total
-    let total = $('#miscellaneous-total').val();
-    $('#miscellaneous-sub_total').val(total);
-// Add event keyup for rows
-    $("#miscellaneous-price, #miscellaneous-quantity").keyup(function () {
-        // Retrieve values from inputs and ensure they're floats
-        let price = parseFloat($('#miscellaneous-price').val());
-        let quantity = parseFloat($('#miscellaneous-quantity').val());
-
-        // Check if the inputs are numbers
-        if (!isNaN(price) && !isNaN(quantity)) {
-            let total_sum = price * quantity;
-            $('#miscellaneous-total').attr('value', total_sum.toFixed(2));
-            $('#miscellaneous-sub_total').val(total_sum.toFixed(2));
-        } else {
-            $("#miscellaneous-sub_total").val("Please enter valid numbers.");
-        }
+    $(document).on('input', '.miscellaneous-price, .miscellaneous-quantity', function () {
+        // Find the closest row container
+        var $row = $(this).closest('.sub-form');
+        // Parse the cost and quantity values as floats and default to 0 if NaN
+        var cost = parseFloat($row.find('.miscellaneous-price').val()) || 0;
+        var quantity = parseFloat($row.find('.miscellaneous-quantity').val()) || 0;
+        // Calculate the total for the row
+        var total = cost * quantity;
+        // Update the total input in the current row
+        $row.find('.miscellaneous-total').val(total.toFixed(2)); // Rounds to two decimal places
+        $row.find('.miscellaneous-sub_total').val(total.toFixed(2)); // Rounds to two decimal places
     });
 //==========END:: Script for Miscellaneous Widget  ===========
 });
