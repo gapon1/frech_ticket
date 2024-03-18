@@ -78,14 +78,12 @@ $form = ActiveForm::begin(['id' => 'ticket-form']); ?>
 echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::className())
 ?>
 
-<!-- LabourWidget section -->
-<?= \app\widgets\Labour::widget([
-    'ticket_id' => $ticket->id,
-    'form' => $form,
-]) ?>
+<div id="labour-widget"></div>
+<hr style="margin: 50px 10px" class="hr"/>
 <div id="truck-widget"></div>
+<hr style="margin: 50px 10px" class="hr"/>
 <div id="miscellaneous-widget"></div>
-<hr class="hr"/>
+<hr style="margin: 50px 10px" class="hr"/>
 <div class="col-md-12 text-right">
     <?= Html::submitButton('FINISH', ['class' => 'btn btn-secondary text-right', 'id' => 'save-dynamic-form']); ?>
 </div>
@@ -93,6 +91,12 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
 <?php
 ActiveForm::end();
 ?>
+
+<!-- LabourWidget section -->
+<?= \app\widgets\Labour::widget([
+    'ticket_id' => $ticket->id,
+    'form' => $form,
+]) ?>
 
 <!-- TruckWidget section -->
 <?= \app\widgets\Truck::widget([

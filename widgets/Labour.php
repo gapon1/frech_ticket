@@ -39,7 +39,7 @@ class Labour extends Widget
      */
     protected function findModel($id)
     {
-        if (($model = \app\models\Labour::findOne(['ticket_id' => $id])) !== null) {
+        if (($model = \app\models\Labour::findAll(['ticket_id' => $id])) !== null) {
             return $model;
         }
 

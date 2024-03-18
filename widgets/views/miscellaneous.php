@@ -7,9 +7,8 @@ $form = \yii\bootstrap4\ActiveForm::begin([
     'id' => 'ticket-form-dynamic'
 ]); ?>
 <div id="misc_container" style="text-align: left">
-    <h6 style="text-align: left">Miscellaneous</h6>
+    <h5 style="text-align: left">Miscellaneous</h5>
     <div id="sub-forms-container"></div>
-
     <?php if (!empty($model)): ?>
         <?php foreach ($model as $index => $mod): ?>
             <div class="form-row sub-form">
@@ -44,7 +43,7 @@ $form = \yii\bootstrap4\ActiveForm::begin([
             </div>
         </div>
     <?php endif; ?>
-        <?= \yii\bootstrap4\Html::submitButton('Save', ['id' => 'save-dynamic-form-misc', 'style' => 'display: none']); ?>
+    <?= \yii\bootstrap4\Html::submitButton('Save', ['id' => 'save-dynamic-form-misc', 'style' => 'display: none']); ?>
 </div>
 <?php
 \yii\bootstrap4\ActiveForm::end();

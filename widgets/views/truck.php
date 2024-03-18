@@ -7,10 +7,9 @@
 $form = \yii\bootstrap4\ActiveForm::begin([
     'id' => 'ticket-form-dynamic-truck'
 ]); ?>
-    <hr class="hr"/>
-    <h6>Truck</h6>
-    <div id="sub-forms-container_main-truck"></div>
     <div id="misc_container-truck">
+        <h5>Truck</h5>
+        <div id="sub-forms-container_main-truck"></div>
         <?php if (!empty($model)): ?>
             <?php foreach ($model as $index => $mod): ?>
                 <div class="form-row sub-form-truck">
@@ -27,17 +26,16 @@ $form = \yii\bootstrap4\ActiveForm::begin([
                         <?= $form->field($mod, "[$index]rate")->textInput(['readonly' => true, 'class' => 'reg-rate-truck form-control'])->label('Reg rate'); ?>
                     </div>
                     <div class="form-group col-md-2">
-                        <?= $form->field($mod, "[$index]total")->textInput(['readonly' => true, 'class'=>'total-truck form-control']); ?>
+                        <?= $form->field($mod, "[$index]total")->textInput(['readonly' => true, 'class' => 'total-truck form-control']); ?>
                     </div>
                     <div class="form-group col-md-2 text-center" style="margin-top: 30px">
                         <button type="button" id="<?= $mod->id ?>" class="btn btn-danger remove-sub-form-truck">X
                         </button>
                         <button type="button" class="btn btn-primary add-sub-form-truck">+</button>
                     </div>
-                    <!-- Add additional form groups as needed -->
                 </div>
             <?php endforeach; ?>
-            <div class="container" style="margin-top: -30px">
+            <div class="container" style="margin-top: -20px">
                 <div class="form-group row">
                     <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
                     <div class="col-sm-4">
