@@ -51,11 +51,12 @@ $(document).ready(function () {
         calculateRowTotal($(this));
     });
     calculateSubTotal();
-//==========END:: Script for Truck Widget  ===========
+    //==========END:: Script for Truck Widget  ===========
+
     // Change block position
     $('#ticket-form-dynamic-truck').insertBefore('#truck-widget'); // Moves the '#block-to-move' before '#target-element'
 
-    //========== Ajax script for Dynamic adding Truck blocks  ===========
+//========== Ajax script for Dynamic adding Truck blocks  ===========
     let counter = 0;
     const searchParams = new URLSearchParams(window.location.search);
     let ticketId = searchParams.getAll('id')
@@ -73,7 +74,7 @@ $(document).ready(function () {
         });
     });
 
-    //======= Create new entity ======
+    // Create new entity
     $(document).on('click', '#save_dynamic-truck', function (e) {
         e.preventDefault();
         $.ajax({
@@ -87,14 +88,13 @@ $(document).ready(function () {
             }
         });
     });
-    //========  Update new entity ======
-
 
     // Add trigger click for main EDIT button
     $(document).on('click', '#save-dynamic-form', function (e) {
         $('#save-dynamic-form-misc-truck').trigger('click');
     });
 
+    //Update new entity
     $(document).on('click', '#save-dynamic-form-misc-truck', function (e) {
         e.preventDefault();
         $.ajax({
@@ -108,7 +108,7 @@ $(document).ready(function () {
         });
     })
 
-    //==========  Delete block =======
+    // Delete block
     $(document).on('click change', '.remove-sub-form-truck', function (e) {
         let blockId = $(this).attr('id')
         e.preventDefault();
@@ -130,7 +130,6 @@ $(document).ready(function () {
         });
     });
 //==========END:: Ajax script for Dynamic adding Miscellaneous blocks  ===========
-
 
 });
 

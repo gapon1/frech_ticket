@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\Miscellaneous;
 use app\models\TicketTrucks;
 use app\models\Trucks;
 use yii\bootstrap4\ActiveForm;

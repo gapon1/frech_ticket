@@ -30,10 +30,11 @@ $(document).ready(function () {
     $(document).on('input', '.miscellaneous-price, .miscellaneous-quantity', updateSubTotal);
     updateSubTotal();
 //==========END:: Script for Miscellaneous Widget  ===========
+
+//========== Ajax script for Dynamic adding Miscellaneous blocks  ===========
     // Change block position
     $('#ticket-form-dynamic').insertBefore('#miscellaneous-widget'); // Moves the '#block-to-move' before '#target-element'
 
-    //========== Ajax script for Dynamic adding Miscellaneous blocks  ===========
     let counter = 0;
     const searchParams = new URLSearchParams(window.location.search);
     let ticketId = searchParams.getAll('id')
@@ -51,7 +52,7 @@ $(document).ready(function () {
         });
     });
 
-    //======= Create new entity ======
+    // Create new entity
     $(document).on('click', '#save_dynamic', function (e) {
         e.preventDefault();
         $.ajax({
@@ -66,13 +67,13 @@ $(document).ready(function () {
             }
         });
     });
-    //========  Update new entity ======
 
     // Add trigger click for main EDIT button
     $(document).on('click', '#save-dynamic-form', function (e) {
         $('#save-dynamic-form-misc').trigger('click');
     });
 
+    //Update new entity
     $(document).on('click', '#save-dynamic-form-misc', function (e) {
         e.preventDefault();
         $.ajax({
@@ -86,7 +87,7 @@ $(document).ready(function () {
         });
     })
 
-    //==========  Delete block =======
+    // Delete block
     $(document).on('click change', '.remove-sub-form', function (e) {
         let blockId = $(this).attr('id')
         e.preventDefault();
@@ -95,10 +96,11 @@ $(document).ready(function () {
             type: 'POST',
             data: $('#ticket-form').serialize(),
             success: function (data) {
-                    $('#sub-forms-container').html(data);
+                $('#sub-forms-container').html(data);
             }
         });
     });
+
     // Dynamic binding for removing a sub-form
     $(document).on('click', '.remove-sub-form', function () {
         $(this).closest('.sub-form').fadeOut('slow', function () {
@@ -107,6 +109,7 @@ $(document).ready(function () {
             $('.add-sub-form').prop('disabled', false);
         });
     });
+
 //==========END:: Ajax script for Dynamic adding Miscellaneous blocks  ===========
 
 });

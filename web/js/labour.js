@@ -1,6 +1,6 @@
 $(document).ready(function () {
 //==========  Calculate Labour Widget  ===========
-//  IF Change Position value
+//IF Change Position value
     $('#labour-position_id').change(function () {
         let positionId = $(this).val();
         $.ajax({
@@ -18,7 +18,7 @@ $(document).ready(function () {
         });
     });
 
-    //======== Calculate Rows ==========
+    // Calculate Rows
     function calculateRowLabour(row) {
         let uom = row.find('.uom-labour').val(); // Assuming the UOM dropdown has the class 'uom'
         let regRate = parseFloat(row.find('.reg-rate-labour').val()) || 0;
@@ -60,6 +60,7 @@ $(document).ready(function () {
         calculateRowLabour($(this));
     });
     calculateTotalSubTotal();
+
     // Function to calculate and update the sub-total
     function updateSubTotal() {
         var subTotal = 0;
@@ -71,11 +72,14 @@ $(document).ready(function () {
         // Update the sub-total field
         $('#grand-sub-total').val(subTotal.toFixed(2)); // Assuming the Sub-Total field has the ID 'sub-total'
     }
-//==========END:: Script for Labour Widget  ===========
+
+//========== END:: Script for Labour Widget  ===========
+
+//========== Work with Labour Widget  ===========
 // Change block position
     $('#ticket-form-dynamic-labour').insertBefore('#labour-widget'); // Moves the '#block-to-move' before '#target-element'
 
-    //========== Ajax script for Dynamic adding Miscellaneous blocks  ===========
+    // Ajax script for Dynamic adding Miscellaneous blocks
     let counter = 0;
     const searchParams = new URLSearchParams(window.location.search);
     let ticketId = searchParams.getAll('id')
@@ -93,7 +97,7 @@ $(document).ready(function () {
         });
     });
 
-    //======= Create new entity ======
+    // Create new entity
     $(document).on('click', '#save_dynamic-labour', function (e) {
         e.preventDefault();
         $.ajax({
@@ -109,7 +113,7 @@ $(document).ready(function () {
         });
     });
 
-    //========  Update new entity ======
+    // Update new entity
     $(document).on('click', '#save-dynamic-form-misc-labour', function (e) {
         e.preventDefault();
         $.ajax({
@@ -128,7 +132,7 @@ $(document).ready(function () {
         $('#save-dynamic-form-misc-labour').trigger('click');
     });
 
-    //==========  Delete block =======
+    // Delete block
     $(document).on('click change', '.remove-sub-form-labour', function (e) {
         let blockId = $(this).attr('id')
         e.preventDefault();
@@ -149,5 +153,5 @@ $(document).ready(function () {
             $('.add-sub-form-labour').prop('disabled', false);
         });
     });
-//==========END:: Ajax script for Dynamic adding Miscellaneous blocks  ===========
+//==========END:: Work with Labour Widget  ===========
 });

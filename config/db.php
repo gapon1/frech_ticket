@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=rook_media',
+    'dsn' => 'mysql:host=localhost;dbname=rook',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

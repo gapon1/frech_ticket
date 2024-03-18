@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
 //========== Ajax script for Ticket Form  ===========
     // Customer change
     $('#customer-dropdown').change(function () {
