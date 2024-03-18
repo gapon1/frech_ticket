@@ -21,21 +21,21 @@ $form = \yii\bootstrap4\ActiveForm::begin([
                         <?= $form->field($mod, "[$index]position_id")->dropDownList(\yii\helpers\ArrayHelper::map($positions, 'id', 'title')); ?>
                     </div>
                     <div class="form-group col-md-1">
-                        <?= $form->field($mod, "[$index]uom")->dropDownList(\app\models\Tickets::getUomOptions()); ?>
+                        <?= $form->field($mod, "[$index]uom")->dropDownList(\app\models\Tickets::getUomOptions(), ['class' => 'uom-labour form-control']); ?>
                     </div>
                     <div class="form-group col-md-1">
-                        <?= $form->field($mod, "[$index]regular_rate")->textInput(['disabled' => true])->label('Reg rate'); ?>
+                        <?= $form->field($mod, "[$index]regular_rate")->textInput(['readonly' => true, 'class' => 'reg-rate-labour form-control']); ?>
                     </div>
                     <div class="form-group col-md-1">
-                        <?= $form->field($mod, "[$index]reg_hours"); ?>
+                        <?= $form->field($mod, "[$index]reg_hours")->textInput(['class' => 'reg-hours-labour form-control']); ?>
                     </div>
                     <div class="form-group col-md-2">
-                        <?= $form->field($mod, "[$index]overtime_rate")->textInput(['readonly' => true]); ?>
+                        <?= $form->field($mod, "[$index]overtime_rate")->textInput(['readonly' => true, 'class' => 'overtime-rate-labour form-control']); ?>
                     </div>
                     <div class="form-group col-md-1">
-                        <?= $form->field($mod, "[$index]overtime"); ?>
+                        <?= $form->field($mod, "[$index]overtime")->textInput(['class' => 'overtime-labour form-control']); ?>
                     </div>
-                    <?= $form->field($mod, "[$index]total")->hiddenInput()->label(false); ?>
+                    <?= $form->field($mod, "[$index]total")->hiddenInput(['class' => 'sub-total-labour form-control'])->label(false); ?>
                     <div class="form-group col-md-2 text-center" style="margin-top: 30px">
                         <button type="button" id="<?= $mod->id ?>" class="btn btn-danger remove-sub-form-labour">X
                         </button>
@@ -45,9 +45,9 @@ $form = \yii\bootstrap4\ActiveForm::begin([
             <?php endforeach; ?>
             <div class="container" style="margin-top: -20px">
                 <div class="form-group row">
-                    <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
+                    <label for="inputExample" class="col-sm-8 col-form-label"><b>Sub-Total</b></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" disabled id="labour_sub-total-labour" value="0">
+                        <input type="text" class="form-control" disabled id="grand-sub-total" value="0">
                     </div>
                 </div>
             </div>

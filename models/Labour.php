@@ -35,7 +35,7 @@ class Labour extends \yii\db\ActiveRecord
         return [
             [['ticket_id', 'staff_id', 'position_id'], 'required'],
             [['ticket_id', 'staff_id', 'position_id'], 'integer'],
-            [['reg_hours', 'overtime', 'total'], 'number'],
+            [['reg_hours', 'overtime', 'total', 'regular_rate', 'overtime_rate'], 'number'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tickets::class, 'targetAttribute' => ['ticket_id' => 'id']],
             [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => Staff::class, 'targetAttribute' => ['staff_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Positions::class, 'targetAttribute' => ['position_id' => 'id']],
@@ -53,6 +53,8 @@ class Labour extends \yii\db\ActiveRecord
             'staff_id' => 'Staff',
             'position_id' => 'Position',
             'reg_hours' => 'Reg Hours',
+            'regular_rate' => 'Reg Rate',
+            'overtime_rate' => 'Overtime Rate',
             'overtime' => 'Overtime',
             'total' => 'Total',
         ];

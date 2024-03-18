@@ -37,7 +37,7 @@ $form = \yii\bootstrap4\ActiveForm::begin([
             <?php endforeach; ?>
             <div class="container" style="margin-top: -20px">
                 <div class="form-group row">
-                    <label for="inputExample" class="col-sm-8 col-form-label">Sub-Total</label>
+                    <label for="inputExample" class="col-sm-8 col-form-label"><b>Sub-Total</b></label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" disabled id="trucks-sub_total" value="0">
                     </div>

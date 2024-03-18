@@ -18,42 +18,59 @@ $(document).ready(function () {
         });
     });
 
-//     $("#ticket-form").on('keyup mousedown mouseup click change', function (e) {
-// // Check UOM value
-//         let selectedUom = $('#positions-uom').find(":selected").val();
-//         if (selectedUom === 'Fixed') {
-//             $('#labour-reg_hours').prop('disabled', true);
-//             $('#labour-overtime').prop('disabled', true);
-//             let labourPrice = parseFloat($('#positions-regular_rate').val());
-//             $('#labour-total').val(labourPrice.toFixed(2));
-//             $('#labour_sub-total').val(labourPrice.toFixed(2));
-//
-//         } else {
-//             $('#labour-reg_hours').prop('disabled', false);
-//             $('#labour-overtime').prop('disabled', false);
-//             // Add total value for row Sub-Total
-//             let labourTotal = $('#labour-total').val();
-//             $('#labour_sub-total').val(labourTotal);
-//             // Add event keyup for rows
-//                 $(document).on('input', '#labour-reg_hours, #labour-overtime, #positions-uom', function () {
-//                 let labourPrice = parseFloat($('#positions-regular_rate').val());
-//                 let labourQuantity = parseFloat($('#labour-reg_hours').val());
-//                 let labourOvertime = parseFloat($('#labour-overtime').val());
-//                 let labourOvertimeRate = parseFloat($('#positions-overtime_rate').val());
-//
-//                 // Check if the inputs are numbers
-//                 if (!isNaN(labourPrice) && !isNaN(labourQuantity)) {
-//                     let overtimeTotal = labourOvertime * labourOvertimeRate
-//                     let labourTotal_sum = labourPrice * labourQuantity;
-//                     let labourTotalSum = overtimeTotal + labourTotal_sum;
-//                     $('#labour-total').val(labourTotalSum.toFixed(2));
-//                     $('#labour_sub-total').val(labourTotalSum.toFixed(2));
-//                 } else {
-//                     $("#labour_sub-total").val("Please enter valid numbers.");
-//                 }
-//             });
-//         }
-//     });
+    //======== Calculate Rows ==========
+    function calculateRowLabour(row) {
+        let uom = row.find('.uom-labour').val(); // Assuming the UOM dropdown has the class 'uom'
+        let regRate = parseFloat(row.find('.reg-rate-labour').val()) || 0;
+        let regHours = parseFloat(row.find('.reg-hours-labour').val()) || 0;
+        let overtimeRate = parseFloat(row.find('.overtime-rate-labour').val()) || 0;
+        let overtime = parseFloat(row.find('.overtime-labour').val()) || 0;
+
+        let subTotal;
+        if (uom === 'Fixed') {
+            subTotal = regRate;
+        } else {
+            subTotal = (regRate * regHours) + (overtimeRate * overtime);
+        }
+
+        // Assuming Sub-total for each row has the class 'sub-total'
+        row.find('.sub-total-labour').val(subTotal.toFixed(2));
+    }
+
+    function calculateTotalSubTotal() {
+        var totalSubTotal = 0;
+        // Assuming each row has the class 'labour-row'
+        $('.sub-form-labour').each(function () {
+            var subTotal = parseFloat($(this).find('.sub-total-labour').val()) || 0;
+            totalSubTotal += subTotal;
+        });
+        // Assuming the grand Sub-total has the id 'grand-sub-total'
+        $('#grand-sub-total').val(totalSubTotal.toFixed(2));
+    }
+
+    // Bind the input event to the reg-rate, reg-hours, overtime-rate, overtime, and UOM fields
+    $(document).on('input change', '.reg-rate-labour, .reg-hours-labour, .overtime-rate-labour, .overtime-labour, .uom-labour', function () {
+        var row = $(this).closest('.sub-form-labour');
+        calculateRowLabour(row);
+        calculateTotalSubTotal();
+    });
+
+    // Initial calculation on page load
+    $('.sub-form-labour').each(function () {
+        calculateRowLabour($(this));
+    });
+    calculateTotalSubTotal();
+    // Function to calculate and update the sub-total
+    function updateSubTotal() {
+        var subTotal = 0;
+        // Loop through each total field and add the value to subTotal
+        $('.sub-total-labour').each(function () {
+            var value = parseFloat($(this).val()) || 0;
+            subTotal += value;
+        });
+        // Update the sub-total field
+        $('#grand-sub-total').val(subTotal.toFixed(2)); // Assuming the Sub-Total field has the ID 'sub-total'
+    }
 //==========END:: Script for Labour Widget  ===========
 // Change block position
     $('#ticket-form-dynamic-labour').insertBefore('#labour-widget'); // Moves the '#block-to-move' before '#target-element'
@@ -87,7 +104,7 @@ $(document).ready(function () {
                 $('#sub-forms-container_main-labour').remove();
                 $('#misc_container-labour').replaceWith(data); // Replace the content
                 $('.add-sub-form-labour').prop('disabled', false);
-                //updateSubTotal();
+                updateSubTotal();
             }
         });
     });
@@ -128,7 +145,7 @@ $(document).ready(function () {
     $(document).on('click', '.remove-sub-form-labour', function () {
         $(this).closest('.sub-form-labour').fadeOut('slow', function () {
             $(this).remove();
-           // updateSubTotal();
+            updateSubTotal();
             $('.add-sub-form-labour').prop('disabled', false);
         });
     });

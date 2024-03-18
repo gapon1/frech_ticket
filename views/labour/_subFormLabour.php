@@ -38,7 +38,7 @@ $form = \yii\bootstrap4\ActiveForm::begin([
         </div>
         <?= $form->field($model, 'total')->hiddenInput(['value'=> 0])->label(false); ?>
         <div class="form-group col-md-2" style="margin-top: 35px; text-align: center">
-            <button class="btn btn-danger remove-sub-form-truck">X</button>
+            <button class="btn btn-danger remove-sub-form-labour">X</button>
             <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'id' => 'save_dynamic-labour']); ?>
         </div>
     </div>

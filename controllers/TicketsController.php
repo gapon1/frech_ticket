@@ -8,7 +8,6 @@ use app\models\Labour;
 use app\models\Locations;
 use app\models\Tickets;
 use app\models\TicketsSearch;
-use app\models\TicketTrucks;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -78,23 +77,15 @@ class TicketsController extends Controller
     public function actionUpdate($id)
     {
         $ticket = $this->findModel($id);
-        $labour = $this->findModelLabour($id);
-        $positions = $labour->position;
         $customers = Customers::find()->all();
         $jobs = Jobs::find()->all();
         $locations = Locations::find()->all();
 
         if ($ticket->load(\Yii::$app->request->post())
-            && $labour->load(\Yii::$app->request->post())
-            && $positions->load(\Yii::$app->request->post())
         ) {
             $isValid = $ticket->validate();
-            $isValid = $labour->validate() && $isValid;
-            $isValid = $positions->validate() && $isValid;
             if ($isValid) {
                 $ticket->save(false);
-                $labour->save(false);
-                $positions->save(false);
 
                 \Yii::$app->session->setFlash('success', 'Ticket created.');
 

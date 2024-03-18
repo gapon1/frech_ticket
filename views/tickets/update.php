@@ -83,7 +83,7 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
 <div id="truck-widget"></div>
 <hr style="margin: 50px 10px" class="hr"/>
 <div id="miscellaneous-widget"></div>
-<hr style="margin: 50px 10px" class="hr"/>
+<hr class="hr"/>
 <div class="col-md-12 text-right">
     <?= Html::submitButton('FINISH', ['class' => 'btn btn-secondary text-right', 'id' => 'save-dynamic-form']); ?>
 </div>

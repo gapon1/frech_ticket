@@ -36,7 +36,11 @@ class LabourController extends Controller
         $staff = Staff::find()->all();
         $positions = Positions::find()->all();
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->regular_rate = rand(5, 15);
+                $model->overtime_rate = rand(7, 25);
+
+                $model->save();
                 $labour = Labour::find()->all();
                 return $this->renderAjax('../../widgets/views/labour', [
                     'model' => $labour,
