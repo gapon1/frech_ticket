@@ -19,33 +19,41 @@ $(document).ready(function () {
         });
     });
 
-    $("#ticket-form").on('keyup mousedown mouseup click change', function (e) {
-        let selectedTruck = $('#trucks-uom').find(":selected").val();
-        if (selectedTruck === 'Fixed') {
-            let truckRateVal = parseFloat($('#trucks-rate').val());
-            $('#trucks-sub_total').val(truckRateVal.toFixed(2));
-            $('#trucks-total').val(truckRateVal.toFixed(2));
-        } else {
-            // Add total value for row Sub-Total
-            let trucksTotal = $('#trucks-total').val();
-            $('#trucks-sub_total').val(trucksTotal);
-            // Add event keyup for rows
-            $("#trucks-rate, #trucks-quantity, #trucks-uom").on('keyup click change', function () {
-                // Retrieve values from inputs and ensure they're floats
-                let truckPrice = parseFloat($('#trucks-rate').val());
-                let truckQuantity = parseFloat($('#trucks-quantity').val());
-                // Check if the inputs are numbers
-                if (!isNaN(truckPrice) && !isNaN(truckQuantity)) {
-                    let truckTotal_sum = truckPrice * truckQuantity;
-                    $('#trucks-total').val(truckTotal_sum.toFixed(2));
-                    $('#trucks-sub_total').val(truckTotal_sum.toFixed(2));
-                } else {
-                    $("#trucks-sub_total").val("Please enter valid numbers.");
-                }
-            });
-        }
+//==========  Function to calculate the total for each row
+    function calculateRowTotal(row) {
+        let quantity = parseFloat(row.find('.quantity-truck').val()) || 0;
+        let regRate = parseFloat(row.find('.reg-rate-truck').val()) || 0;
+        let uom = row.find('.uom-truck').val();
+        // Calculate total based on UOM
+        let total = uom === 'Fixed' ? regRate : quantity * regRate;
+        // Set the total in the current row
+        row.find('.total-truck').val(total.toFixed(2));
+    }
+
+    // Function to calculate and update the sub-total for all rows
+    function calculateSubTotal() {
+        let subTotal = 0;
+        $('.sub-form-truck').each(function () {
+            var total = parseFloat($(this).find('.total-truck').val()) || 0;
+            subTotal += total;
+        });
+        $('#trucks-sub_total').val(subTotal.toFixed(2)); // Assuming you have an input with ID 'sub-total'
+    }
+
+    // Event listener for when 'Quantity', 'Reg rate', or 'Uom' changes in a row
+    $(document).on('input change', '.quantity-truck, .reg-rate-truck, .uom-truck', function () {
+        let row = $(this).closest('.sub-form-truck'); // Assuming each row has class 'truck-row'
+        calculateRowTotal(row);
+        calculateSubTotal();
     });
+    // Initial calculation on page load
+    $('.sub-form-truck').each(function () {
+        calculateRowTotal($(this));
+    });
+    calculateSubTotal();
 //==========END:: Script for Truck Widget  ===========
+    // Change block position
+    $('#ticket-form-dynamic-truck').insertBefore('#truck-widget'); // Moves the '#block-to-move' before '#target-element'
 
     //========== Ajax script for Dynamic adding Truck blocks  ===========
     let counter = 0;
@@ -83,7 +91,7 @@ $(document).ready(function () {
 
 
     // Add trigger click for main EDIT button
-    $(document).on('click', '#save-dynamic-form-truck', function (e) {
+    $(document).on('click', '#save-dynamic-form', function (e) {
         $('#save-dynamic-form-misc-truck').trigger('click');
     });
 
@@ -117,14 +125,11 @@ $(document).ready(function () {
     $(document).on('click', '.remove-sub-form-truck', function () {
         $(this).closest('.sub-form-truck').fadeOut('slow', function () {
             $(this).remove();
+            calculateSubTotal();
             $('.add-sub-form-truck').prop('disabled', false);
         });
     });
 //==========END:: Ajax script for Dynamic adding Miscellaneous blocks  ===========
-
-
-
-
 
 
 });

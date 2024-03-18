@@ -83,13 +83,8 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
     'ticket_id' => $ticket->id,
     'form' => $form,
 ]) ?>
-
-<!-- TruckWidget section -->
-<?= \app\widgets\Truck::widget([
-    'ticket_id' => $ticket->id,
-    'form' => $form,
-]) ?>
-
+<div id="truck-widget"></div>
+<div id="miscellaneous-widget"></div>
 <hr class="hr"/>
 <div class="col-md-12 text-right">
     <?= Html::submitButton('FINISH', ['class' => 'btn btn-secondary text-right', 'id' => 'save-dynamic-form']); ?>
@@ -98,6 +93,12 @@ echo $form->field($ticket, 'description')->widget(alexantr\tinymce\TinyMCE::clas
 <?php
 ActiveForm::end();
 ?>
+
+<!-- TruckWidget section -->
+<?= \app\widgets\Truck::widget([
+    'ticket_id' => $ticket->id,
+    'form' => $form,
+]) ?>
 
 <!-- MiscellaneousWidget section -->
 <?= \app\widgets\Miscellaneous::widget([

@@ -31,7 +31,7 @@ $(document).ready(function () {
     updateSubTotal();
 //==========END:: Script for Miscellaneous Widget  ===========
     // Change block position
-    $('#ticket-form-dynamic').insertBefore('#save-dynamic-form'); // Moves the '#block-to-move' before '#target-element'
+    $('#ticket-form-dynamic').insertBefore('#miscellaneous-widget'); // Moves the '#block-to-move' before '#target-element'
 
     //========== Ajax script for Dynamic adding Miscellaneous blocks  ===========
     let counter = 0;
@@ -62,6 +62,7 @@ $(document).ready(function () {
                 $('#sub-forms-container_main').remove();
                 $('#misc_container').replaceWith(data); // Replace the content
                 $('.add-sub-form').prop('disabled', false);
+                updateSubTotal();
             }
         });
     });
@@ -102,6 +103,7 @@ $(document).ready(function () {
     $(document).on('click', '.remove-sub-form', function () {
         $(this).closest('.sub-form').fadeOut('slow', function () {
             $(this).remove();
+            updateSubTotal();
             $('.add-sub-form').prop('disabled', false);
         });
     });

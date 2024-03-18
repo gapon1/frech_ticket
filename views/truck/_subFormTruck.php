@@ -18,16 +18,16 @@ $form = \yii\bootstrap4\ActiveForm::begin([
             <?= $form->field($model, "label")->dropDownList(\yii\helpers\ArrayHelper::map($trucks, 'id', 'label')); ?>
         </div>
         <div class="form-group col-md-2">
-            <?= $form->field($model, 'quantity'); ?>
+            <?= $form->field($model, 'quantity')->textInput(['class' => 'quantity-truck form-control']); ?>
         </div>
         <div class="form-group col-md-2">
-            <?= $form->field($model, 'uom')->dropDownList(\app\models\Tickets::getUomOptions()); ?>
+            <?= $form->field($model, 'uom')->dropDownList(\app\models\Tickets::getUomOptions(), ['class' => 'uom-truck form-control']); ?>
         </div>
         <div class="form-group col-md-2">
-            <?= $form->field($model, 'rate')->textInput(['readonly' => true, 'value' => 99])->label('Reg rate'); ?>
+            <?= $form->field($model, 'rate')->textInput(['readonly' => true, 'class' => 'reg-rate-truck form-control','value' => 99])->label('Reg rate'); ?>
         </div>
         <div class="form-group col-md-2">
-            <?= $form->field($model, 'total')->textInput(['readonly' => true]); ?>
+            <?= $form->field($model, 'total')->textInput(['readonly' => true, 'class'=>'total-truck form-control']); ?>
         </div>
         <div class="form-group col-md-2" style="margin-top: 35px">
             <button class="btn btn-danger remove-sub-form-truck">X</button>

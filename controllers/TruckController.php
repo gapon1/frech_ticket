@@ -62,16 +62,18 @@ class TruckController extends Controller
     public function actionUpdateTruck($ticketId)
     {
         // Load the related Miscellaneous models
-        $truckModels = Trucks::findAll(['ticket_id' => $ticketId]);
+        $truckModels = Trucks::find()->all();
 
         if (Yii::$app->request->isPost) {
-            $truckPostData = Yii::$app->request->post('Miscellaneous', []);
+            $truckPostData = Yii::$app->request->post('Trucks', []);
+
             foreach ($truckModels as $index => $miscModel) {
                 // Load the submitted data and validate it
                 if (isset($truckPostData[$index])) {
                     $miscModel->load($truckPostData[$index], '');
                 }
             }
+
             $valid = ActiveForm::validateMultiple($truckModels);
             if (empty($valid)) {
                 // All models are valid, so save them

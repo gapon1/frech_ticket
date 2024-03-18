@@ -6,9 +6,10 @@
 $form = \yii\bootstrap4\ActiveForm::begin([
     'id' => 'ticket-form-dynamic'
 ]); ?>
-<h6 style="text-align: left">Miscellaneous</h6>
-<div id="sub-forms-container"></div>
 <div id="misc_container" style="text-align: left">
+    <h6 style="text-align: left">Miscellaneous</h6>
+    <div id="sub-forms-container"></div>
+
     <?php if (!empty($model)): ?>
         <?php foreach ($model as $index => $mod): ?>
             <div class="form-row sub-form">

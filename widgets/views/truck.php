@@ -18,16 +18,16 @@ $form = \yii\bootstrap4\ActiveForm::begin([
                         <?= $form->field($mod, "[$index]label"); ?>
                     </div>
                     <div class="form-group col-md-2">
-                        <?= $form->field($mod, "[$index]quantity"); ?>
+                        <?= $form->field($mod, "[$index]quantity")->textInput(['class' => 'quantity-truck form-control']); ?>
                     </div>
                     <div class="form-group col-md-2">
-                        <?= $form->field($mod, "[$index]uom")->dropDownList(\app\models\Tickets::getUomOptions()); ?>
+                        <?= $form->field($mod, "[$index]uom")->dropDownList(\app\models\Tickets::getUomOptions(), ['class' => 'uom-truck form-control']); ?>
                     </div>
                     <div class="form-group col-md-2">
-                        <?= $form->field($mod, "[$index]rate")->textInput(['readonly' => true])->label('Reg rate'); ?>
+                        <?= $form->field($mod, "[$index]rate")->textInput(['readonly' => true, 'class' => 'reg-rate-truck form-control'])->label('Reg rate'); ?>
                     </div>
                     <div class="form-group col-md-2">
-                        <?= $form->field($mod, "[$index]total")->textInput(['readonly' => true]); ?>
+                        <?= $form->field($mod, "[$index]total")->textInput(['readonly' => true, 'class'=>'total-truck form-control']); ?>
                     </div>
                     <div class="form-group col-md-2 text-center" style="margin-top: 30px">
                         <button type="button" id="<?= $mod->id ?>" class="btn btn-danger remove-sub-form-truck">X
