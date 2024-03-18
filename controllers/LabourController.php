@@ -37,8 +37,8 @@ class LabourController extends Controller
         $positions = Positions::find()->all();
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->regular_rate = rand(5, 15);
-                $model->overtime_rate = rand(7, 25);
+                $model->regular_rate = 22;
+                $model->overtime_rate = 33;
 
                 $model->save();
                 $labour = Labour::find()->all();

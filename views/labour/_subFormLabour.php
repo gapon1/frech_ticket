@@ -22,21 +22,21 @@ $form = \yii\bootstrap4\ActiveForm::begin([
             <?= $form->field($model, "position_id")->dropDownList(\yii\helpers\ArrayHelper::map($positions, 'id', 'title')); ?>
         </div>
         <div class="form-group col-md-1">
-            <?= $form->field($model, 'uom')->dropDownList(\app\models\Tickets::getUomOptions()); ?>
+            <?= $form->field($model, 'uom')->dropDownList(\app\models\Tickets::getUomOptions(), ['class' => 'uom-labour form-control']); ?>
         </div>
         <div class="form-group col-md-1">
-            <?= $form->field($model, 'regular_rate')->textInput(['readonly' => true])->label('Reg rate'); ?>
+            <?= $form->field($model, 'regular_rate')->textInput(['readonly' => true, 'value' => 22, 'class' => 'reg-rate-labour form-control'])->label('Reg rate'); ?>
         </div>
         <div class="form-group col-md-1">
-            <?= $form->field($model, 'reg_hours'); ?>
+            <?= $form->field($model, 'reg_hours')->textInput(['class' => 'reg-hours-labour form-control']); ?>
         </div>
         <div class="form-group col-md-2">
-            <?= $form->field($model, 'overtime_rate')->textInput(['readonly' => true]); ?>
+            <?= $form->field($model, 'overtime_rate')->textInput(['readonly' => true, 'value' => 33, 'class' => 'overtime-rate-labour form-control']); ?>
         </div>
         <div class="form-group col-md-1">
-            <?= $form->field($model, 'overtime'); ?>
+            <?= $form->field($model, 'overtime')->textInput(['class' => 'overtime-labour form-control']); ?>
         </div>
-        <?= $form->field($model, 'total')->hiddenInput(['value'=> 0])->label(false); ?>
+        <?= $form->field($model, 'total')->hiddenInput(['class' => 'sub-total-labour form-control'])->label(false); ?>
         <div class="form-group col-md-2" style="margin-top: 35px; text-align: center">
             <button class="btn btn-danger remove-sub-form-labour">X</button>
             <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'id' => 'save_dynamic-labour']); ?>
