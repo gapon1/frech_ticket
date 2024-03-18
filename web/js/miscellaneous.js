@@ -95,7 +95,7 @@ $(document).ready(function () {
             type: 'POST',
             data: $('#ticket-form').serialize(),
             success: function (data) {
-                // Some script
+                    $('#sub-forms-container').html(data);
             }
         });
     });

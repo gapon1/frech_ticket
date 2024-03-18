@@ -42,6 +42,10 @@ $form = \yii\bootstrap4\ActiveForm::begin([
                 </div>
             </div>
         </div>
+    <?php else: ?>
+        <div class="form-group col-md-12 text-right" style="margin-top: 30px">
+            <button type="button" class="btn btn-primary add-sub-form">+</button>
+        </div>
     <?php endif; ?>
     <?= \yii\bootstrap4\Html::submitButton('Save', ['id' => 'save-dynamic-form-misc', 'style' => 'display: none']); ?>
 </div>

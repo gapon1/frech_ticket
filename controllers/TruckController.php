@@ -96,7 +96,9 @@ class TruckController extends Controller
         $model = Trucks::findOne(['id' => $id]);
         $modelTicket->delete();
         $model->delete();
-        return 'Truck Delete success';
+        return '<div class="form-group col-md-12 text-right" style="margin-top: 30px">
+            <button type="button" class="btn btn-primary add-sub-form-truck">+</button>
+        </div>';
     }
 
 }

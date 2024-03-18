@@ -117,7 +117,7 @@ $(document).ready(function () {
             type: 'POST',
             data: $('#ticket-form-dynamic-truck').serialize(),
             success: function (data) {
-                // Some script
+                $('#sub-forms-container_main-truck').html(data);
             }
         });
     });

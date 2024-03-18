@@ -137,7 +137,7 @@ $(document).ready(function () {
             type: 'POST',
             data: $('#ticket-form-labour').serialize(),
             success: function (data) {
-                // Some script
+                $('#sub-forms-container_main-labour').html(data);
             }
         });
     });

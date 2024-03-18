@@ -88,7 +88,9 @@ class LabourController extends Controller
     {
         $model = Labour::findOne(['id' => $id]);
         $model->delete();
-        return 'Labour Delete success';
+        return '<div class="form-group col-md-12 text-right" style="margin-top: 30px">
+            <button type="button" class="btn btn-primary add-sub-form-labour">+</button>
+        </div>';
     }
 
 }

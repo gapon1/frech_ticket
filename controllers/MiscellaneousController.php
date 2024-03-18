@@ -73,8 +73,9 @@ class MiscellaneousController extends Controller
     {
         $model = Miscellaneous::findOne(['id' => $id]);
         $model->delete();
-        var_dump('Delete success');
-        die();
+        return '<div class="form-group col-md-12 text-right" style="margin-top: 30px">
+            <button type="button" class="btn btn-primary add-sub-form">+</button>
+        </div>';
     }
 
 }
