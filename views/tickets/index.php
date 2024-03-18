@@ -39,10 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status',
             //'description:ntext',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Tickets $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update}', // Specify which buttons to show
             ],
         ],
     ]); ?>
